@@ -60,6 +60,39 @@ def reorder_internet_service_id(df):
         new_value = 0
     return(new_value)
 
+def get_combined_service_id(df):
+    rvalue = 0
+    if df['phone_id'] == 0:
+        if df['internet_service_type_id'] == 0:
+            rvalue = 0
+        elif df['internet_service_type_id'] == 1:
+            rvalue = 1
+        elif df['internet_service_type_id'] == 2:   
+            rvalue = 2
+        else:
+            rvalue = 0    
+    elif df['phone_id'] == 1:
+        if df['internet_service_type_id'] == 0:
+            rvalue = 3
+        elif df['internet_service_type_id'] == 1:
+            rvalue = 4
+        elif df['internet_service_type_id'] == 2:   
+            rvalue = 5
+        else:
+            rvalue = 0    
+    elif df['phone_id'] == 2:
+        if df['internet_service_type_id'] == 0:
+            rvalue = 6
+        elif df['internet_service_type_id'] == 1:
+            rvalue = 7
+        elif df['internet_service_type_id'] == 2:   
+            rvalue = 8
+        else:
+            rvalue = 0    
+    else:
+        rvalue = 0  
+    return(rvalue)    
+
 def prep_telco_data(df):
     df = fix_telco_total_charges(df)
     df['percent_var_tc_from_act_tc'] = (df['monthly_charges'] * df['tenure']) / df['total_charges']
@@ -68,6 +101,7 @@ def prep_telco_data(df):
     df = create_tenure_yr_int(df)
     df['phone_id'] = df.apply(get_phone_id, axis=1)
     df['internet_service_type_id'] = df.apply(reorder_internet_service_id, axis=1)
+    df['combined_service_id'] = df.apply(get_combined_service_id, axis=1)
     return df
 
        
