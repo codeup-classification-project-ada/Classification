@@ -40,11 +40,29 @@ def fix_telco_total_charges(df):
     df.drop(df[df.total_charges == 0].index, inplace=True)   
     return(df)
 
+def get_phone_id(df):
+    rvalue = 0
+    if df.multiple_lines.lower() == 'yes':
+        rvalue = 2
+    elif df.multiple_lines.lower() != 'yes' and df.phone_service.lower() == 'yes':
+        rvalue = 1
+    else:
+        rvalue = 0
+    return(rvalue)
+
+def reorder_internet_service_id(df):
+    new_value = df.internet_service_type_id
+    if df.internet_service_type_id == 3:
+        new_value = 0
+    return(new_value)
+
 def prep_telco_data(df):
     df = fix_telco_total_charges(df)
     df['percent_var_tc_from_act_tc'] = (df['monthly_charges'] * df['tenure']) / df['total_charges']
     df = encode_churn(df)
     df = create_tenure_year(df)
+    df['phone_id'] = df.apply(get_phone_id, axis=1)
+    df['internet_service_type_id'] = df.apply(reorder_internet_service_id, axis=1)
     return df
 
        
