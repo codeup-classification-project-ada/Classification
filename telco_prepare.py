@@ -50,6 +50,10 @@ def get_phone_id(df):
         rvalue = 0
     return(rvalue)
 
+def create_tenure_yr_int(df):
+    df[['tenure_yr_int']] = df[['tenure_year']].astype(int)   
+    return df
+
 def reorder_internet_service_id(df):
     new_value = df.internet_service_type_id
     if df.internet_service_type_id == 3:
@@ -61,6 +65,7 @@ def prep_telco_data(df):
     df['percent_var_tc_from_act_tc'] = (df['monthly_charges'] * df['tenure']) / df['total_charges']
     df = encode_churn(df)
     df = create_tenure_year(df)
+    df = create_tenure_yr_int(df)
     df['phone_id'] = df.apply(get_phone_id, axis=1)
     df['internet_service_type_id'] = df.apply(reorder_internet_service_id, axis=1)
     return df
