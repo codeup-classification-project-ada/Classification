@@ -6,4 +6,4 @@ The deliverables are
 3) Probability output file:          test_probabilities.csv .    link:  xxxxxxxxxxxxxxxxxxxx
 4) Summary Slide:                    link:     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-Run Requirements:    env.py must be in your working directory with the following login criteria:     "user",   "host",   "password".      The data will be pulled from the Codeup mysql database and prepped for analysis in the notebook.     
+Run Requirements:    env.py must be in your working directory with the following login criteria:     "user",   "host",   "password".      The data will be pulled from the Codeup mysql database and prepped for analysis in the notebook.  get_telco_data and prep_telco_data,    will run all requirements for pulling the data from the mysql database,  loading it into a dataframe called "df",  including data cleanup and feature engineering.   All analysis, and scaling, is done from withing the notebook.    
